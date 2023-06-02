@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal/models/favorite_meals.dart';
 import 'package:meal/screens/categories.dart';
 import 'package:meal/screens/meals.dart';
+import 'package:meal/widgets/main_drawer.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
@@ -16,6 +17,7 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
+
   final _pageViewController = PageController();
 
   void _selectPage(int index) {
@@ -27,9 +29,25 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
 
+  String get appBarTitle =>
+      _selectedPageIndex == 0 ? 'Categories' : 'Favorites';
+
+  void _setScreen(String identifier) {
+    if (identifier == 'filters') {
+    } else {
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(appBarTitle),
+      ),
+      drawer: MainDrawer(
+        onSelectScreen: _setScreen,
+      ),
       body: PageView(
         onPageChanged: (value) => setState(() {
           _selectedPageIndex = value;
@@ -37,8 +55,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         controller: _pageViewController,
         children: [
           const CategoriesScreen(),
-          MealScreen(
-              title: 'Favorites', meals: ref.watch(favoriteMealsProvider))
+          MealScreen(meals: ref.watch(favoriteMealsProvider))
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
