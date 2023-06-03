@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:meal/screens/meals.dart';
 
 import '../data/dummy_data.dart';
 import '../models/category.dart';
+import '../models/filter.dart';
 import '../widgets/category_grid_item.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends ConsumerWidget {
   const CategoriesScreen({super.key});
 
-  void _selectCategory(BuildContext context, Category category) {
-    final filteredMeals = dummyMeals
-        .where((meal) => meal.categories.contains(category.id))
-        .toList();
+  void _selectCategory(BuildContext context, Category category, WidgetRef ref) {
+    final filters = ref.read(filterProvider);
+
+    final filteredMeals = dummyMeals.where((meal) {
+      if (!meal.categories.contains(category.id)) return false;
+
+      if (filters.glutenFree && !meal.isGlutenFree) return false;
+      if (filters.lactoseFree && !meal.isLactoseFree) return false;
+      if (filters.vegan && !meal.isVegan) return false;
+      if (filters.vegetarian && !meal.isVegetarian) return false;
+
+      return true;
+    }).toList();
 
     Navigator.push(
         context,
@@ -23,7 +35,7 @@ class CategoriesScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -37,7 +49,7 @@ class CategoriesScreen extends StatelessWidget {
                 .map((category) => CategoryGridItem(
                       category: category,
                       onSelectCategory: () =>
-                          _selectCategory(context, category),
+                          _selectCategory(context, category, ref),
                     ))
                 .toList()),
       ),

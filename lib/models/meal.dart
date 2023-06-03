@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:meal/models/filter.dart';
 
 part 'meal.freezed.dart';
 
@@ -16,6 +17,9 @@ enum Affordability {
 
 @freezed
 class Meal with _$Meal {
+  // added for filters getter to work for the freezed generator
+  const Meal._();
+
   factory Meal({
     required String id,
     required List<String> categories,
@@ -31,4 +35,10 @@ class Meal with _$Meal {
     required bool isVegan,
     required bool isVegetarian,
   }) = _Meal;
+
+  Filter get filters => Filter(
+      glutenFree: isGlutenFree,
+      lactoseFree: isLactoseFree,
+      vegan: isVegan,
+      vegetarian: isVegetarian);
 }

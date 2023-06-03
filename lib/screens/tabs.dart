@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal/models/favorite_meals.dart';
 import 'package:meal/screens/categories.dart';
+import 'package:meal/screens/filters.dart';
 import 'package:meal/screens/meals.dart';
 import 'package:meal/widgets/main_drawer.dart';
 
@@ -34,6 +35,9 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   void _setScreen(String identifier) {
     if (identifier == 'filters') {
+      Navigator.pop(context);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const FiltersScreen()));
     } else {
       Navigator.of(context).pop();
     }

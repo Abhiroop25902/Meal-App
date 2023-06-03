@@ -6,7 +6,7 @@ part of 'favorite_meals.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favoriteMealsHash() => r'0b79bf7c7cb8216aa78380f6d53c769c2268c900';
+String _$favoriteMealsHash() => r'f39852ebfdd296e9af02aa53e1890267d6976f3f';
 
 /// See also [FavoriteMeals].
 @ProviderFor(FavoriteMeals)
