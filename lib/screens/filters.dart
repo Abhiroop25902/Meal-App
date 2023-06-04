@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal/models/filter.dart';
 
-class FiltersScreen extends ConsumerStatefulWidget {
+import '../providers/filter_notifier.dart';
+
+
+
+class FiltersScreen extends ConsumerWidget {
   const FiltersScreen({super.key});
 
   @override
-  FiltersScreenState createState() => FiltersScreenState();
-}
-
-class FiltersScreenState extends ConsumerState<FiltersScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final filter = ref.watch(filterProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filter = ref.watch(filterNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Filters'),
@@ -21,9 +19,7 @@ class FiltersScreenState extends ConsumerState<FiltersScreen> {
         SwitchListTile(
           value: filter.glutenFree,
           onChanged: (val) {
-            setState(() {
-              ref.watch(filterProvider).glutenFree = val;
-            });
+            ref.watch(filterNotifierProvider.notifier).setGlutenFree(val);
           },
           title: Text(
             'Gluten-free',
@@ -45,9 +41,7 @@ class FiltersScreenState extends ConsumerState<FiltersScreen> {
         SwitchListTile(
           value: filter.lactoseFree,
           onChanged: (val) {
-            setState(() {
-              ref.watch(filterProvider).lactoseFree = val;
-            });
+            ref.watch(filterNotifierProvider.notifier).setLactoseFree(val);
           },
           title: Text(
             'Lactose-free',
@@ -67,11 +61,31 @@ class FiltersScreenState extends ConsumerState<FiltersScreen> {
           contentPadding: const EdgeInsets.only(left: 34, right: 22),
         ),
         SwitchListTile(
+          value: filter.vegetarian,
+          onChanged: (val) {
+            ref.watch(filterNotifierProvider.notifier).setVegetarian(val);
+          },
+          title: Text(
+            'Vegetarian',
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+          subtitle: Text(
+            'Only include vegetarian meals.',
+            style: Theme.of(context)
+                .textTheme
+                .labelLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+          activeColor: Theme.of(context).colorScheme.tertiary,
+          contentPadding: const EdgeInsets.only(left: 34, right: 22),
+        ),
+        SwitchListTile(
           value: filter.vegan,
           onChanged: (val) {
-            setState(() {
-              ref.watch(filterProvider).vegan = val;
-            });
+            ref.watch(filterNotifierProvider.notifier).setVegan(val);
           },
           title: Text(
             'Vegan',
@@ -90,30 +104,6 @@ class FiltersScreenState extends ConsumerState<FiltersScreen> {
           activeColor: Theme.of(context).colorScheme.tertiary,
           contentPadding: const EdgeInsets.only(left: 34, right: 22),
         ),
-        SwitchListTile(
-          value: filter.vegetarian,
-          onChanged: (val) {
-            setState(() {
-              ref.watch(filterProvider).vegetarian = val;
-            });
-          },
-          title: Text(
-            'Vegetarian',
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge!
-                .copyWith(color: Theme.of(context).colorScheme.onBackground),
-          ),
-          subtitle: Text(
-            'Only include vegetarian meals.',
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge!
-                .copyWith(color: Theme.of(context).colorScheme.onBackground),
-          ),
-          activeColor: Theme.of(context).colorScheme.tertiary,
-          contentPadding: const EdgeInsets.only(left: 34, right: 22),
-        )
       ]),
     );
   }

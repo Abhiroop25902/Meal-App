@@ -1,10 +1,11 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'meal.dart';
-part 'favorite_meals.g.dart';
+import '../models/meal.dart';
+
+part 'favorite_meals_notifier.g.dart';
 
 @riverpod
-class FavoriteMeals extends _$FavoriteMeals {
+class FavoriteMealsNotifier extends _$FavoriteMealsNotifier {
   @override
   List<Meal> build() {
     return [];

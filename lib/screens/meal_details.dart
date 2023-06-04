@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/favorite_meals.dart';
 import '../models/meal.dart';
+import '../providers/favorite_meals_notifier.dart';
 
 class MealDetailsScreen extends ConsumerWidget {
   const MealDetailsScreen({super.key, required this.meal});
@@ -18,7 +18,7 @@ class MealDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favoriteMeals = ref.watch(favoriteMealsProvider);
+    final favoriteMeals = ref.watch(favoriteMealsNotifierProvider);
     final isFavorite = favoriteMeals.contains(meal);
 
     return Scaffold(
@@ -29,12 +29,12 @@ class MealDetailsScreen extends ConsumerWidget {
               onPressed: () {
                 if (isFavorite) {
                   ref
-                      .watch(favoriteMealsProvider.notifier)
+                      .watch(favoriteMealsNotifierProvider.notifier)
                       .removeFavoriteMeal(meal);
                   _showInfoMessage(context, 'Meal is no longer a favorite');
                 } else {
                   ref
-                      .watch(favoriteMealsProvider.notifier)
+                      .watch(favoriteMealsNotifierProvider.notifier)
                       .addFavoriteMeal(meal);
                   _showInfoMessage(context, 'Marked as a favorite');
                 }

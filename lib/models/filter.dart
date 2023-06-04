@@ -1,17 +1,13 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Filter {
-  bool glutenFree;
-  bool lactoseFree;
-  bool vegan;
-  bool vegetarian;
+part 'filter.freezed.dart';
 
-  Filter({
-    this.glutenFree = false,
-    this.lactoseFree = false,
-    this.vegan = false,
-    this.vegetarian = false,
-  });
+@freezed
+class Filter with _$Filter {
+  const factory Filter({
+    @Default(false) bool glutenFree,
+    @Default(false) bool lactoseFree,
+    @Default(false) bool vegan,
+    @Default(false) bool vegetarian,
+  }) = _Filter;
 }
-
-final filterProvider = StateProvider((ref) => Filter());

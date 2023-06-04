@@ -243,7 +243,7 @@ class __$$_MealCopyWithImpl<$Res> extends _$MealCopyWithImpl<$Res, _$_Meal>
 
 /// @nodoc
 
-class _$_Meal extends _Meal {
+class _$_Meal implements _Meal {
   _$_Meal(
       {required this.id,
       required final List<String> categories,
@@ -260,8 +260,7 @@ class _$_Meal extends _Meal {
       required this.isVegetarian})
       : _categories = categories,
         _ingredients = ingredients,
-        _steps = steps,
-        super._();
+        _steps = steps;
 
   @override
   final String id;
@@ -366,7 +365,7 @@ class _$_Meal extends _Meal {
       __$$_MealCopyWithImpl<_$_Meal>(this, _$identity);
 }
 
-abstract class _Meal extends Meal {
+abstract class _Meal implements Meal {
   factory _Meal(
       {required final String id,
       required final List<String> categories,
@@ -381,7 +380,6 @@ abstract class _Meal extends Meal {
       required final bool isLactoseFree,
       required final bool isVegan,
       required final bool isVegetarian}) = _$_Meal;
-  _Meal._() : super._();
 
   @override
   String get id;
