@@ -11,11 +11,13 @@ class FavoriteMealsNotifier extends _$FavoriteMealsNotifier {
     return [];
   }
 
-  void addFavoriteMeal(Meal meal) {
-    state = [...state, meal];
-  }
+  void toggleMealFavoriteStatus(Meal meal) {
+    final mealIsFavorite = state.contains(meal);
 
-  void removeFavoriteMeal(Meal meal) {
-    state = state.where((element) => element.id != meal.id).toList();
+    if (mealIsFavorite) {
+      state = state.where((element) => element.id != meal.id).toList();
+    } else {
+      state = [meal, ...state];
+    }
   }
 }
