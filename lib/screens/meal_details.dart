@@ -27,13 +27,13 @@ class MealDetailsScreen extends ConsumerWidget {
         actions: [
           IconButton(
               onPressed: () {
-                ref
-                    .watch(favoriteMealsNotifierProvider.notifier)
+                bool wasAdded = ref
+                    .read(favoriteMealsNotifierProvider.notifier)
                     .toggleMealFavoriteStatus(meal);
-                if (isFavorite) {
-                  _showInfoMessage(context, 'Meal is no longer a favorite');
-                } else {
+                if (wasAdded) {
                   _showInfoMessage(context, 'Marked as a favorite');
+                } else {
+                  _showInfoMessage(context, 'Meal is no longer a favorite');
                 }
               },
               icon: Icon(isFavorite ? Icons.star : Icons.star_border))

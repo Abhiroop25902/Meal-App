@@ -11,13 +11,15 @@ class FavoriteMealsNotifier extends _$FavoriteMealsNotifier {
     return [];
   }
 
-  void toggleMealFavoriteStatus(Meal meal) {
+  bool toggleMealFavoriteStatus(Meal meal) {
     final mealIsFavorite = state.contains(meal);
 
     if (mealIsFavorite) {
       state = state.where((element) => element.id != meal.id).toList();
+      return false;
     } else {
       state = [meal, ...state];
+      return true;
     }
   }
 }
