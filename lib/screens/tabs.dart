@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:meal/providers/meals_provider.dart';
 import 'package:meal/screens/categories.dart';
 import 'package:meal/screens/filters.dart';
 import 'package:meal/screens/meals.dart';
 import 'package:meal/widgets/main_drawer.dart';
 
 import '../providers/favorite_meals_notifier.dart';
-import '../providers/filter_notifier.dart';
+import '../providers/filters_notifier.dart';
 
 class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
@@ -48,17 +47,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final filter = ref.watch(filterNotifierProvider);
-    final meals = ref.watch(mealsProvider);
-
-    final availableMeals = meals.where((e) {
-      if (filter.glutenFree && !e.isGlutenFree) return false;
-      if (filter.lactoseFree && !e.isLactoseFree) return false;
-      if (filter.vegetarian && !e.isVegetarian) return false;
-      if (filter.vegan && !e.isVegan) return false;
-
-      return true;
-    }).toList();
+    final availableMeals = ref.watch(filteredMealsProvider);
 
     return Scaffold(
       appBar: AppBar(

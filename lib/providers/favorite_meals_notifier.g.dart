@@ -7,7 +7,7 @@ part of 'favorite_meals_notifier.dart';
 // **************************************************************************
 
 String _$favoriteMealsNotifierHash() =>
-    r'e4e9cc78025b655eab622742562967076bbce617';
+    r'7d7f6173444bf90521d81fc67cf578fae93df1f2';
 
 /// See also [FavoriteMealsNotifier].
 @ProviderFor(FavoriteMealsNotifier)

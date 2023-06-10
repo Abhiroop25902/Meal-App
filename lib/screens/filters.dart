@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/filter_notifier.dart';
-
-
+import '../providers/filters_notifier.dart';
 
 class FiltersScreen extends ConsumerWidget {
   const FiltersScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(filterNotifierProvider);
+    final activeFilters = ref.watch(filtersNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Filters'),
       ),
       body: Column(children: [
         SwitchListTile(
-          value: filter.glutenFree,
+          value: activeFilters.glutenFree,
           onChanged: (val) {
-            ref.watch(filterNotifierProvider.notifier).setGlutenFree(val);
+            ref.read(filtersNotifierProvider.notifier).setGlutenFree(val);
           },
           title: Text(
             'Gluten-free',
@@ -39,9 +37,9 @@ class FiltersScreen extends ConsumerWidget {
           contentPadding: const EdgeInsets.only(left: 34, right: 22),
         ),
         SwitchListTile(
-          value: filter.lactoseFree,
+          value: activeFilters.lactoseFree,
           onChanged: (val) {
-            ref.watch(filterNotifierProvider.notifier).setLactoseFree(val);
+            ref.read(filtersNotifierProvider.notifier).setLactoseFree(val);
           },
           title: Text(
             'Lactose-free',
@@ -61,9 +59,9 @@ class FiltersScreen extends ConsumerWidget {
           contentPadding: const EdgeInsets.only(left: 34, right: 22),
         ),
         SwitchListTile(
-          value: filter.vegetarian,
+          value: activeFilters.vegetarian,
           onChanged: (val) {
-            ref.watch(filterNotifierProvider.notifier).setVegetarian(val);
+            ref.read(filtersNotifierProvider.notifier).setVegetarian(val);
           },
           title: Text(
             'Vegetarian',
@@ -83,9 +81,9 @@ class FiltersScreen extends ConsumerWidget {
           contentPadding: const EdgeInsets.only(left: 34, right: 22),
         ),
         SwitchListTile(
-          value: filter.vegan,
+          value: activeFilters.vegan,
           onChanged: (val) {
-            ref.watch(filterNotifierProvider.notifier).setVegan(val);
+            ref.read(filtersNotifierProvider.notifier).setVegan(val);
           },
           title: Text(
             'Vegan',
