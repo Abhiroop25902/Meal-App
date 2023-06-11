@@ -28,11 +28,14 @@ class MealItem extends StatelessWidget {
             SizedBox(
                 width: double.infinity,
                 height: 200,
-                child: CachedNetworkImage(
-                  imageUrl: meal.imageUrl,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
+                child: Hero(
+                  tag: ValueKey(meal.imageUrl),
+                  child: CachedNetworkImage(
+                    imageUrl: meal.imageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                  ),
                 )),
             Positioned(
               bottom: 0,

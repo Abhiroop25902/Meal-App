@@ -54,11 +54,15 @@ class MealDetailsScreen extends ConsumerWidget {
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CachedNetworkImage(
-            imageUrl: meal.imageUrl,
-            fit: BoxFit.cover,
-            height: 300,
-            width: double.infinity,
+          Hero(
+            
+            tag: ValueKey(meal.imageUrl),
+            child: CachedNetworkImage(
+              imageUrl: meal.imageUrl,
+              fit: BoxFit.cover,
+              height: 300,
+              width: double.infinity,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
